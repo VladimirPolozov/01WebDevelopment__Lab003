@@ -1,6 +1,7 @@
+import './TaskList.css'
 import Task from './Task';
 
-export function TaskList({ tasks, actions }) {
+function TaskList({ tasks, actions }) {
   if (tasks.length === 0) {
     return (
       <div className="no-tasks">
@@ -21,3 +22,4 @@ export function TaskList({ tasks, actions }) {
     </div>
   );
 }
+export default TaskList;

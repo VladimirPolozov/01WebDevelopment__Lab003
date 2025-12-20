@@ -1,6 +1,6 @@
 import './App.css'
 import { useTasks } from './hooks/useTasks';
-import { TaskList } from './components/TaskList';
+import TaskList from './components/TaskList';
 import './App.css';
 
 

@@ -1,4 +1,4 @@
-export function Task({ task, actions }) {
+function Task({ task, actions }) {
   return (
     <div className="task-container">
       <div className="task">
@@ -13,3 +13,4 @@ export function Task({ task, actions }) {
     </div>
   );
 }
+export default Task;
