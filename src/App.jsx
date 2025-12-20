@@ -1,36 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState(0)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('tasks');
+    if (saved) setTasks(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {renderTasks(tasks)}
     </>
   )
+}
+
+function renderTasks(tasks) {
+  if ( tasks.length === 0 ) {
+    return (
+      <div className="no-tasks">
+        <p>No tasks</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="tasks-container">
+      {tasks.map(task => (
+        <div key={task.id} className="task-container">
+          <div className="task">
+            <div className="task__info">    
+              <h3 className="card__title">{task.title}</h3>
+              <p className="task__desc">{task.desc}</p>
+            </div>
+            <div class="task__actions">
+              <button data-action="delete" title="Удалить">X</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default App
