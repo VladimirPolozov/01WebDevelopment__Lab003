@@ -1,0 +1,30 @@
+.task:active .context-menu {
+    display: flex;
+}
+
+.task {
+    padding: 16px;
+    border: #A35709 2px solid;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #242320;
+    align-items: start;
+}
+
+.task__title {
+    color: #F0E3CA;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.task__desc {
+    color: #F0E3CA;
+    font-size: 14px;
+}
+
+.task__actions {
+    display: flex;
+    align-items: center;
+}

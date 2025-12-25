@@ -11,7 +11,7 @@ function TaskList({ tasks, actions }) {
   }
 
   return (
-    <div className="tasks-container">
+    <>
       {tasks.map(task => (
         <Task
           key={task.id}
@@ -19,7 +19,7 @@ function TaskList({ tasks, actions }) {
           actions={actions}
         />
       ))}
-    </div>
+    </>
   );
 }
 export default TaskList;
