@@ -15,7 +15,7 @@ function EditModal({ task, onSave, onCancel }) {
   };
 
   return (
-    <div className="modal">
+    <div className="modal" onClick={onCancel}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <p>Edit task</p>
         <form onSubmit={handleSubmit}>

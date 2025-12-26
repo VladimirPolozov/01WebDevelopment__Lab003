@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import './Task.css'
 import EditModal from './EditModal';
+import DeleteModal from './DeleteModal';
 
 function Task({ task, actions }) {
   const [showMenu, setShowMenu] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const taskRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +29,8 @@ function Task({ task, actions }) {
       alert('Информация о задаче: ' + task.id);
     } else if (actionType === 'edit') {
       setShowEditModal(true);
+    } else if (actionType === 'delete') {
+      setShowDeleteModal(true)
     }
     setShowMenu(false);
   };
@@ -44,7 +48,7 @@ function Task({ task, actions }) {
           <p className="task__desc">{task.desc}</p>  
         </div>
         <div className="task__actions">
-          <button onClick={() => actions.delete(task.id)} className="btn delete-task-btn">X</button>
+          <button onClick={() => handleAction('delete')} className="btn delete-task-btn">X</button>
         </div>
       </div>
       {showMenu && (
@@ -59,6 +63,13 @@ function Task({ task, actions }) {
           task={task}
           onSave={handleSave}
           onCancel={() => setShowEditModal(false)}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          task={task}
+          onDelete={() => actions.delete(task.id)}
+          onCancel={() => setShowDeleteModal(false)}
         />
       )}
     </div>
