@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import './Task.css'
+import EditModal from './EditModal';
 
 function Task({ task, actions }) {
   const [showMenu, setShowMenu] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const taskRef = useRef(null);
 
   useEffect(() => {
@@ -24,9 +26,14 @@ function Task({ task, actions }) {
     } else if (actionType === 'info') {
       alert('Информация о задаче: ' + task.id);
     } else if (actionType === 'edit') {
-      actions.edit(task.id, 'Новый заголовок', task.desc); // пример
+      setShowEditModal(true);
     }
     setShowMenu(false);
+  };
+
+  const handleSave = (newTitle, newDesc) => {
+    actions.edit(task.id, newTitle, newDesc);
+    setShowEditModal(false);
   };
 
   return (
@@ -46,6 +53,13 @@ function Task({ task, actions }) {
           <button className="btn context-menu__btn" onClick={() => handleAction('info')}><i className="fas fa-info-circle context-menu__icon"></i></button>
           <button className="btn context-menu__btn" onClick={() => handleAction('edit')}><i className="fas fa-edit context-menu__icon"></i></button>
         </div>
+      )}
+      {showEditModal && (
+        <EditModal
+          task={task}
+          onSave={handleSave}
+          onCancel={() => setShowEditModal(false)}
+        />
       )}
     </div>
   );

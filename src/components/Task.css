@@ -49,6 +49,9 @@
 }
 
 .share-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
     padding: 4px;
     border-radius: 25px;
     background-color: #23221F;
