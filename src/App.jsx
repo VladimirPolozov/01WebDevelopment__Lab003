@@ -1,17 +1,24 @@
-import './App.css'
-import { useTasks } from './hooks/useTasks';
+import { useSelector, useDispatch } from 'react-redux';;
+import { selectAllTasks } from './features/tasks/tasksSelectors';
+import { addTask } from './features/tasks/tasksSlice';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
-
+import './App.css'
 
 function App() {
-  const { tasks, actions } = useTasks();
+  const tasks = useSelector(selectAllTasks);
+  const dispatch = useDispatch();
+
+  const handleAddTask = (title, desc) => {
+    dispatch(addTask({ title, desc }));
+  };
+
 
   return (
     <>
-      <TaskForm onAdd={actions.add} />
+      <TaskForm onAdd={handleAddTask} />
       <div className="tasks-container">
-        <TaskList tasks={tasks} actions={actions} />
+        <TaskList tasks={tasks} />
       </div>
     </>
   );

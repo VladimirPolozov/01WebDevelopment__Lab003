@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import './Task.css'
+import { useDispatch } from 'react-redux';
+import { deleteTask, editTask } from '../features/tasks/tasksSlice';
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
-import ShareModal from './ShareModal';
+import ShareModal from './ShareModal'
+import './Task.css';
 
-function Task({ task, actions }) {
+function Task({ task }) {
   const [showMenu, setShowMenu] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -37,9 +39,15 @@ function Task({ task, actions }) {
     setShowMenu(false);
   };
 
+  const dispatch = useDispatch();
+
   const handleSave = (newTitle, newDesc) => {
-    actions.edit(task.id, newTitle, newDesc);
+    dispatch(editTask({ id: task.id, title: newTitle, desc: newDesc }));
     setShowEditModal(false);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTask(task.id));
   };
 
   return (
@@ -69,7 +77,7 @@ function Task({ task, actions }) {
       )}
       {showDeleteModal && (
         <DeleteModal
-          onDelete={() => actions.delete(task.id)}
+          onDelete={handleDelete}
           onCancel={() => setShowDeleteModal(false)}
         />
       )}

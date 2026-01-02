@@ -1,7 +1,19 @@
-import './TaskList.css'
+import { useDispatch } from 'react-redux';
+import { deleteTask, editTask } from '../features/tasks/tasksSlice';
 import Task from './Task';
+import './TaskList.css'
 
-function TaskList({ tasks, actions }) {
+function TaskList({ tasks }) {
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    dispatch(deleteTask(id));
+  };
+
+  const handleEdit = (id, newTitle, newDesc) => {
+    dispatch(editTask({ id, title: newTitle, desc: newDesc }));
+  };
+
   if (tasks.length === 0) {
     return (
       <div className="no-tasks">
@@ -16,7 +28,8 @@ function TaskList({ tasks, actions }) {
         <Task
           key={task.id}
           task={task}
-          actions={actions}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       ))}
     </>

@@ -1,9 +1,12 @@
-import './TaskForm.css'
+import { useDispatch } from 'react-redux';
+import { addTask } from '../features/tasks/tasksSlice';
 import { useState } from 'react';
+import './TaskForm.css'
 
-function TaskForm({ onAdd }) {
+function TaskForm() {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +16,7 @@ function TaskForm({ onAdd }) {
       return;
     }
 
-    onAdd(title, desc);
+    dispatch(addTask({ title, desc }));
     
     // Очистка формы
     setTitle('');
