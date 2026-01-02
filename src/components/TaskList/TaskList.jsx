@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { deleteTask, editTask } from '../features/tasks/tasksSlice';
-import Task from './Task';
+import { deleteTask, editTask } from '../../features/tasks/tasksSlice';
+import Task from '../TaskItem/TaskItem';
 import './TaskList.css'
 
 function TaskList({ tasks }) {

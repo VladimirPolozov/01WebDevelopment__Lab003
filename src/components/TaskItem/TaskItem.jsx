@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTask, editTask } from '../features/tasks/tasksSlice';
-import EditModal from './EditModal';
-import DeleteModal from './DeleteModal';
-import ShareModal from './ShareModal'
-import './Task.css';
+import { deleteTask, editTask } from '../../features/tasks/tasksSlice';
+import EditModal from '../../modals/EditModal';
+import DeleteModal from '../../modals/DeleteModal';
+import ShareModal from '../../modals/ShareModal'
+import './TaskItem.css';
 
 function Task({ task }) {
   const [showMenu, setShowMenu] = useState(false);

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from '../features/tasks/tasksSlice';
+import { addTask } from '../../features/tasks/tasksSlice';
 import { useState } from 'react';
 import './TaskForm.css'
 
