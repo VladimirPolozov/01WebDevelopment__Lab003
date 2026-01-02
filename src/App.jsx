@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';;
 import { selectAllTasks } from './features/tasks/tasksSelectors';
 import { addTask } from './features/tasks/tasksSlice';
-import TaskList from './components/TaskList';
-import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList/TaskList';
+import TaskForm from './components/TaskForm/TaskForm';
 import './App.css'
 
 function App() {

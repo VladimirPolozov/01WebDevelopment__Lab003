@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { deleteTask, editTask } from '../../features/tasks/tasksSlice';
+import { deleteTask, editTask, pinTask } from '../../features/tasks/tasksSlice';
 import Task from '../TaskItem/TaskItem';
 import './TaskList.css'
 
@@ -14,6 +14,19 @@ function TaskList({ tasks }) {
     dispatch(editTask({ id, title: newTitle, desc: newDesc }));
   };
 
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (a.isPinned && b.isPinned) {
+      return a.title.localeCompare(b.title, 'ru', { sensitivity: 'base' });
+    }
+
+    if (!a.isPinned && !b.isPinned) {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+
+    return b.isPinned - a.isPinned;
+  });
+
+
   if (tasks.length === 0) {
     return (
       <div className="no-tasks">
@@ -24,7 +37,7 @@ function TaskList({ tasks }) {
 
   return (
     <>
-      {tasks.map(task => (
+      {sortedTasks.map(task => (
         <Task
           key={task.id}
           task={task}

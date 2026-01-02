@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTask, editTask } from '../../features/tasks/tasksSlice';
+import { deleteTask, editTask, pinTask } from '../../features/tasks/tasksSlice';
 import EditModal from '../../modals/EditModal';
 import DeleteModal from '../../modals/DeleteModal';
 import ShareModal from '../../modals/ShareModal'
@@ -50,6 +50,10 @@ function Task({ task }) {
     dispatch(deleteTask(task.id));
   };
 
+  const handlePin = () => {
+    dispatch(pinTask(task.id));
+  };
+
   return (
     <div className="task-card__container" ref={taskRef} onClick={() => setShowMenu(true)}>
       <div className="task">
@@ -58,7 +62,7 @@ function Task({ task }) {
           <p className="task__desc">{task.desc}</p>  
         </div>
         <div className="task__actions">
-          <button onClick={() => handleAction('delete')} className="btn delete-task-btn">X</button>
+          <button className={`btn pin-task-btn ${task.isPinned ? 'pinned' : ''}`} onClick={(e) => {e.stopPropagation(); handlePin(); }} title={task.isPinned ? "Открепить" : "Закрепить"}><i className={`fas ${task.isPinned ? 'fa-thumbtack' : 'fa-thumbtack'}`}></i></button>
         </div>
       </div>
       {showMenu && (
@@ -66,6 +70,7 @@ function Task({ task }) {
           <button className="btn context-menu__btn" onClick={() => handleAction('share')} title="Поделиться"><i className="fa fa-share-alt context-menu__icon"></i></button>
           <button className="btn context-menu__btn" onClick={() => handleAction('info')}><i className="fas fa-info-circle context-menu__icon"></i></button>
           <button className="btn context-menu__btn" onClick={() => handleAction('edit')}><i className="fas fa-edit context-menu__icon"></i></button>
+          <button onClick={() => handleAction('delete')} className="btn context-menu__btn"><i className="fas fa-trash context-menu__icon"></i></button>
         </div>
       )}
       {showEditModal && (
