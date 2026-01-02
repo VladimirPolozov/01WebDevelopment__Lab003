@@ -2,11 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import './Task.css'
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
+import ShareModal from './ShareModal';
 
 function Task({ task, actions }) {
   const [showMenu, setShowMenu] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const taskRef = useRef(null);
 
   useEffect(() => {
@@ -24,13 +26,13 @@ function Task({ task, actions }) {
 
   const handleAction = (actionType) => {
     if (actionType === 'share') {
-      alert('Поделиться задачей: ' + task.title);
+      setShowShareModal(true);
     } else if (actionType === 'info') {
-      alert('Информация о задаче: ' + task.id);
+      alert('Title: ' + task.title + '\n' + 'About: ' + task.desc);
     } else if (actionType === 'edit') {
       setShowEditModal(true);
     } else if (actionType === 'delete') {
-      setShowDeleteModal(true)
+      setShowDeleteModal(true);
     }
     setShowMenu(false);
   };
@@ -67,9 +69,14 @@ function Task({ task, actions }) {
       )}
       {showDeleteModal && (
         <DeleteModal
-          task={task}
           onDelete={() => actions.delete(task.id)}
           onCancel={() => setShowDeleteModal(false)}
+        />
+      )}
+      {showShareModal && (
+        <ShareModal
+          task={task}
+          onCancel={() => setShowShareModal(false)}
         />
       )}
     </div>
